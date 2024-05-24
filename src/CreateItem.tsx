@@ -1,11 +1,18 @@
 import { useState } from 'react';
 import mondaySdk from 'monday-sdk-js';
+import MondayService from './MondayService';
 
 const monday = mondaySdk();
 monday.setApiVersion("2023-10");
 monday.setToken("eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjM1NzUxMDA0MSwiYWFpIjoxMSwidWlkIjo2MDczNjc3NiwiaWFkIjoiMjAyNC0wNS0wOVQxMTo1Nzo0MS4yMTZaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjMzNjc1NzgsInJnbiI6ImV1YzEifQ.SmvGP_OoPdXd-Na5xu13dVSvcU7jYWyQZOOfBy7xPmo")
 const CreateItem = () => {
+  const mondayService = new MondayService()
   const [itemName, setItemName] = useState('');
+
+  const checkMondayContext = async () => {
+    const res = await mondayService.getContext();
+    console.log(res)
+  }
 
   const handleCreateItem = async () => {
     try {
@@ -27,6 +34,7 @@ const CreateItem = () => {
     //     }
     //   }`);
     console.log('Testing 123')
+    checkMondayContext()
     //   console.log('New item created:', response);
       // You can add further logic here, such as updating state or displaying a success message
     } catch (error) {
